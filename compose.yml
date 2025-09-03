@@ -16,9 +16,7 @@ services:
       context: .
       dockerfile: dockerfile
     volumes:
-      - ./frontend:/var/www/html
-      - ./backend:/var/www/backend
-      - ./apache-config/backend-api.conf:/etc/apache2/conf-enabled/backend-api.conf:ro
+      - ./application:/var/www/html
     ports:
       - "80:80"
       - "443:443"
