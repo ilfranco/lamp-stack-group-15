@@ -28,23 +28,23 @@ $body = (stripos($ct, 'application/json') !== false)
   ? (json_decode(file_get_contents('php://input'), true) ?? [])
   : $_POST;
 
-$first = trim($body['firstName'] ?? '');
-$last  = trim($body['lastName'] ?? '');
+$first = trim($body['first_name'] ?? '');
+$last  = trim($body['last_name'] ?? '');
 $email = strtolower(trim($body['email'] ?? ''));
 $pass  = (string)($body['password'] ?? '');
 
 // Basic validation
 if (!$first || !$last || !$email || !$pass) {
   http_response_code(400);
-  echo json_encode(['error' => 'firstName, lastName, email, password required']);
+  echo json_encode(['error' => 'first_name, last_name, email, password required']);
   exit;
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   http_response_code(400); echo json_encode(['error'=>'invalid email']); exit;
 }
-if (strlen($pass) < 8) {
-  http_response_code(400); echo json_encode(['error'=>'password too short']); exit;
-}
+// if (strlen($pass) < 8) {
+//   http_response_code(400); echo json_encode(['error'=>'password too short']); exit;
+// }
 
 try {
   // Enforce unique email
@@ -63,8 +63,8 @@ try {
 
   echo json_encode(['ok'=>true, 'user'=>[
     'id' => (int)$pdo->lastInsertId(),
-    'firstName' => $first,
-    'lastName'  => $last,
+    'first_name' => $first,
+    'last_name'  => $last,
     'email'     => $email
   ]]);
 } catch (PDOException $e) {
