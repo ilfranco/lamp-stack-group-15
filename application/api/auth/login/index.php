@@ -48,13 +48,11 @@ if (!$user || !password_verify($pass, $user['password_hash'])) {
   exit;
 }
 
-echo json_encode(['ok' => true, 'user' => [
-  'id' => $user['id'],
-  'firstName' => $user['first_name'],
-  'lastName' => $user['last_name'],
-  'email' => $user['email'],
-]]);
-
-
+// echo json_encode(['ok' => true, 'user' => [
+//   'id' => $user['id'],
+//   'firstName' => $user['first_name'],
+//   'lastName' => $user['last_name'],
+//   'email' => $user['email'],
+// ]]);
 
 ?>

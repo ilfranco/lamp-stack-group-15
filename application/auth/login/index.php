@@ -55,4 +55,65 @@
             </div>
         </div>
     </div>
+
+
+   <script>
+(() => {
+  // Use your existing form that posts to /api/auth/login/
+  const form = document.querySelector('form[action="/api/auth/login/"]');
+  if (!form) return;
+
+  const btn = form.querySelector('button[type="submit"]');
+
+  // Helper to show messages: uses #login-msg if present, else alert()
+  const showMsg = (t) => {
+    const el = document.getElementById('login-msg');
+    if (el) { el.textContent = t || ''; el.style.display = t ? 'block' : 'none'; }
+    else if (t) { alert(t); }
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();               // don't navigate to raw JSON
+    showMsg('');
+
+    const email = form.email.value.trim();
+    const password = form.password.value;
+
+    if (!email || !password) { showMsg('Please enter email and password.'); return; }
+
+    // UI: disable button while sending
+    if (btn) { btn.disabled = true; btn.classList.add('opacity-60','cursor-not-allowed'); }
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        showMsg(data.error || 'Login failed.');
+        if (btn) { btn.disabled = false; btn.classList.remove('opacity-60','cursor-not-allowed'); }
+        return;
+      }
+
+      // Persist user (and token later if you add it)
+      if (data.user) localStorage.setItem('user', JSON.stringify(data.user));
+      if (data.token) localStorage.setItem('token', data.token);
+
+      // Redirect 🎯
+      window.location.href = '/contacts/';
+    } catch {
+      showMsg('Network error. Please try again.');
+      if (btn) { btn.disabled = false; btn.classList.remove('opacity-60','cursor-not-allowed'); }
+    }
+  });
+})();
+</script>
+
+ 
 <?php require_once COMPONENTS . '/layout/layout-bottom.php' ?>
+
+
