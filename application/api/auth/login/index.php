@@ -44,15 +44,15 @@ $user = $stmt->fetch();
 
 if (!$user || !password_verify($pass, $user['password_hash'])) {
   http_response_code(401);
-  echo json_encode(['error' => 'invalid credentials']);
+  echo json_encode(['error' => 'Incorrect email or password']);
   exit;
 }
 
-// echo json_encode(['ok' => true, 'user' => [
-//   'id' => $user['id'],
-//   'firstName' => $user['first_name'],
-//   'lastName' => $user['last_name'],
-//   'email' => $user['email'],
-// ]]);
+echo json_encode(['ok' => true, 'user' => [
+  'id' => $user['id'],
+  'firstName' => $user['first_name'],
+  'lastName' => $user['last_name'],
+  'email' => $user['email'],
+]]);
 
 ?>
