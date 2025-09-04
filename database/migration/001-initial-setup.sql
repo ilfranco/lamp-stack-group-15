@@ -23,3 +23,5 @@ create table contacts (
 );
 
 insert into users (first_name, last_name, email, password_hash) values ('Group', '15', 'group15@example.com', 'password');
+
+insert into users (first_name, last_name, email, password_hash) values ('first', 'last', 'aaa@test.com', '$2y$12$uUv729cgeHky8El4T3Jf.OlfPQrx9Rf33Is9k2pSzlULCvp.l6plC');

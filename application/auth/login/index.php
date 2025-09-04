@@ -14,26 +14,44 @@
                         <p class="text-center text-sm text-gray-500">Enter your email and password below to log in</p>
                     </div>
                 </div>
-                <form class="flex flex-col gap-6">
+                <form action="/api/auth/login/" method="post" class="flex flex-col gap-6">
                     <div class="grid gap-2">
                         <label class="text-sm font-medium" for="email">Email Address</label>
-                        <input class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-1 shadow-md" placeholder="email@email.com" type="email" id="email" required >
-                    
-                        </input>
+                        <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        autocomplete="username"
+                        class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md w-full"
+                        placeholder="email@example.com"
+                        />
                     </div>
+
                     <div class="grid gap-2">
                         <label class="text-sm font-medium" for="password">Password</label>
-                        <input class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-1 shadow-md" placeholder="Password" type="email" id="password" required >
-                    
-                        </input>
+                        <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        required
+                        autocomplete="current-password"
+                        class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md w-full"
+                        placeholder="••••••••"
+                        />
                     </div>
-                    <button class="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-2 rounded-md mt-4 text-xs cursor-pointer">
+
+                    <button type="submit" class="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-2 rounded-md mt-4 text-sm">
                         Log in
                     </button>
-                    <div class="text-gray-400 text-center text-sm">
-                        Don't have an account? <a href="/auth/register" class="text-gray-700 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-500 cursor-pointer transition-colors duration-300 ease-out">Sign up</a>
+                    <div class="text-gray-400 text-center text-sm mt-4">
+                        Don't have an account?
+                        <a href="/auth/register/" class="text-gray-700 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-500 cursor-pointer transition-colors duration-300 ease-out">
+                            Sign up
+                        </a>
                     </div>
-                </form>
+
+                    </form>
             </div>
         </div>
     </div>
