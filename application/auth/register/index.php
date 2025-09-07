@@ -41,7 +41,7 @@
                     </div>
                     <div class="grid gap-2">
                         <label class="text-sm font-medium" for="confirm-password">Confirm password</label>
-                        <input class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-1 shadow-md" placeholder="Confirm password" type="password" id="confirm-password" required >
+                        <input class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-1 shadow-md" placeholder="Confirm password" type="password" id="confirm-password" name="confirm-password" required >
                     
                         </input>
                     </div>
@@ -56,43 +56,7 @@
         </div>
     </div>
 
-<button type="submit" onclick="register(event)"
-  class="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-2 rounded-md mt-4 text-xs">
-  Create account
-</button>
-
-<script>
-function register(event) {
-  event.preventDefault();
-
-  const first = document.getElementById('first_name').value.trim();
-  const last  = document.getElementById('last_name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const pass  = document.getElementById('password').value;
-  const confirm = document.getElementById('confirm-password').value;
-
-  if (!first || !last || !email || !pass) { alert('Please fill all fields.'); return; }
-  if (pass !== confirm) { alert('Passwords do not match.'); return; }
-
-  const payload = { first_name: first, last_name: last, email, password: pass }; 
-
-  fetch('/api/auth/register/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  })
-  .then(r => r.json().then(b => ({ ok: r.ok, body: b })))
-  .then(({ ok, body }) => {
-    if (!ok) { alert(body.error || 'Registration failed'); return; }
-    // success -> go to login
-    location.href = '/auth/login/';
-  })
-  .catch(() => alert('Network error. Try again.'));
-}
-</script>
-
-
-    <!-- <script>
+    <script>
         function register(event) {
             console.log("register() called");
             event.preventDefault();
@@ -105,9 +69,7 @@ function register(event) {
             xhr.open("POST", "/api/auth/register/", true);
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.send(formJSON);
-             // success → send to login (or auto-login if you want)
-            //window.location.href = '/auth/login/';
         }
-    </script> -->
+    </script>
 
 <?php require_once COMPONENTS . '/layout/layout-bottom.php' ?>
