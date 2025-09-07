@@ -4,7 +4,7 @@
 <?php require_once COMPONENTS . '/layout/layout-top.php' ?>
 
 <main>
-    <h1>Contacts</h1>
+    <h1>Personal Contacts Page</h1>
     <div class="px-4 sm:px-6 lg:px-8">
   <div class="sm:flex sm:items-center">
     <div class="sm:flex-auto">
