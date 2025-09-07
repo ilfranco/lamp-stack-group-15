@@ -1,14 +1,47 @@
 <?php 
     require_once __DIR__ . './../../database/db.php';
 
-    header('Content-Type: application/json');
-
     $method = $_SERVER['REQUEST_METHOD'];
+    $data = $_GET;
 
-    $raw = file_get_contents("php://input");
-    $data = json_decode($raw, true);
+    $inData = getRequestInfo();
 
-    // This will display the data in the browsers network tab. 
-    // Just click on the latest network request/response and click on preview.
-    echo json_encode($data);
+    $pdo = db();
+
+    $required_input = ["id"];
+
+    foreach ($required_input as $input) {
+        if (!isset($inData[$input])) {
+            returnWithError($input . " is missing from packet.");
+            return;
+        }
+        if (empty($inData[$input])) {
+            returnWithError($input . " cannot be empty.");
+            return;
+        }
+    }
+
+    $queryResults = $pdo->query(
+        "DELETE FROM contacts WHERE id = '" . $inData["id"] . "';"
+    );
+
+	sendResultInfoAsJson( '{"success":"true","error":""}' );
+
+	function getRequestInfo()
+	{
+		return json_decode(file_get_contents('php://input'), true);
+	}
+
+	function sendResultInfoAsJson( $obj )
+	{
+		header('Content-type: application/json');
+		echo $obj;
+	}
+	
+	function returnWithError( $err )
+	{
+		$retValue = '{"error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
+	}
+
 ?>
