@@ -24,8 +24,11 @@
     $queryResults = $pdo->query(
         "DELETE FROM contacts WHERE id = '" . $inData["id"] . "';"
     );
-
-	sendResultInfoAsJson( '{"success":"true","error":""}' );
+    if (!$queryResults->rowCount()) {
+        sendResultInfoAsJson( '{"success":"false","error":"Could not find id."}' );
+    } else {
+        sendResultInfoAsJson( '{"success":"true","error":""}' );
+    }
 
 	function getRequestInfo()
 	{
