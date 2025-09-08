@@ -46,6 +46,8 @@
             $searchResults .= $line . "," . PHP_EOL;
         }
 
+        $searchResults = substr($searchResults, 0, -2) . PHP_EOL;
+
         return $searchResults;
     }
 
