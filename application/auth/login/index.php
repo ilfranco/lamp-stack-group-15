@@ -38,3 +38,5 @@
         </div>
     </div>
 <?php require_once COMPONENTS . '/layout/layout-bottom.php' ?>
+
+
