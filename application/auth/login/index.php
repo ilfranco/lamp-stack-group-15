@@ -14,20 +14,25 @@
                         <p class="text-center text-sm text-gray-500">Enter your email and password below to log in</p>
                     </div>
                 </div>
-                <form class="flex flex-col gap-6">
+                <form id="login_form" class="flex flex-col gap-2">
+                    <!-- <div class="grid gap-2">
+                        <div class="flex justify-between">
+                            <label for="email" class="text-sm font-medium">Email Address</label>
+                            <span class="text-xs text-red-600 flex flex-col justify-end" id="email_error">Hedas</span>
+                        </div>
+                        <input id="email" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="email@example.com" type="email" name="email" required />
+                    </div>  -->
                     <div class="grid gap-2">
-                        <label class="text-sm font-medium" for="email">Email Address</label>
-                        <input class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-1 shadow-md" placeholder="email@email.com" type="email" id="email" required >
-                    
-                        </input>
+                        <label for="email" class="text-sm font-medium">Email Address</label>
+                        <input id="email" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="email@example.com" type="email" name="email" required />
+                        <span id="email_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
                     <div class="grid gap-2">
-                        <label class="text-sm font-medium" for="password">Password</label>
-                        <input class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-1 shadow-md" placeholder="Password" type="email" id="password" required >
-                    
-                        </input>
+                        <label for="password" class="text-sm font-medium">Password</label>
+                        <input id="password" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="Password" type="password" name="password" required />
+                        <span id="password_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
-                    <button class="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-2 rounded-md mt-4 text-xs cursor-pointer">
+                    <button id="log_in" type="button" class="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-md mt-4 text-sm cursor-pointer">
                         Log in
                     </button>
                     <div class="text-gray-400 text-center text-sm">
@@ -37,6 +42,68 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("log_in").addEventListener("click", async (event) => 
+        {
+            event.preventDefault();
+
+            const formData = new FormData(document.getElementById("login_form"));
+            const data = Object.fromEntries(formData.entries());
+            data.email = data.email.trim().toLowerCase();
+
+            if (!data.email) 
+                document.getElementById("email_error").textContent = "Please enter your email.";
+
+            if (data.password !== data.confirm_password) 
+                document.getElementById("password_error").textContent = "Please enter your password.";
+
+            if (!data.email || !data.password) 
+                return;
+
+
+            const body = JSON.stringify(data);
+
+            try 
+            {
+                const response = await fetch("/api/auth/login/", 
+                {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: body
+                });
+
+                if (response.ok) // If (response.status >= 200) && (response.status <= 299)
+                {
+                    const data = await response.json();
+                    /* 
+                    data = {
+                        "message": "Success! User logged in.",
+                        "user": {
+                            "id": integer,
+                            "first_name": string,
+                            "last_name": string, 
+                        }
+                    }*/
+                    window.location.href = "/contacts/"
+                }
+                else // If (response.status < 200) || (response.status > 299)
+                {
+                    const error = await response.json();
+                    error.status = response.status;
+                    error.statusText = response.statusText;
+                    throw error;
+                }
+            } 
+            catch (error)
+            {
+                // Error handling coming soon!
+            }
+        });
+    </script>
+
+
+
 <?php require_once COMPONENTS . '/layout/layout-bottom.php' ?>
 
 
