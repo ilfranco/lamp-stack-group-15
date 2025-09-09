@@ -12,7 +12,7 @@
       <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">A list of all the users in your account including their name, title, email and role.</p>
     </div>
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-      <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add user</button>
+      <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add Contact</button>
     </div>
   </div>
   <div class="mt-8 flow-root">
@@ -22,7 +22,7 @@
           <thead>
             <tr>
               <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">First Name</th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Last Number</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Last Name</th>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Email</th>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Phone Number</th>
               <th scope="col" class="py-3.5 pl-3 pr-4 sm:pr-0">
@@ -30,53 +30,28 @@
               </th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-white/10">
-            <tr>
-              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0 dark:text-white">Lindsay</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">Walton</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">lindsay.walton@example.com</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">123-456-7893</td>
-              <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit<span class="sr-only">, Lindsay Walton</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0 dark:text-white">Courtney</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">Henry</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">courtney.henry@example.com</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">987-654-3211</td>
-              <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit<span class="sr-only">, Courtney Henry</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0 dark:text-white">Tom</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">Cook</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">tom.cook@example.com</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">954-686-1342</td>
-              <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit<span class="sr-only">, Tom Cook</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0 dark:text-white">Whitney</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">Francis</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">whitney.francis@example.com</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">564-389-0321</td>
-              <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit<span class="sr-only">, Whitney Francis</span></a>
-              </td>
-            </tr>
+          <tbody id="tbody" class="divide-y divide-gray-200 dark:divide-white/10">
           </tbody>
         </table>
       </div>
     </div>
   </div>
+  <div class="flex justify-center space-x-2 mt-4">
+    <button id="prevButton" onclick="prevPage()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+      ← Previous
+    </button>
+    <button id="nextButton" onclick="nextPage()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+      Next →
+    </button>
+</div>
 </div>
 </main>
 
+<script src = "/contacts/read/get_page.js"></script>
+
+<script>
+  window.onload = loadContactTable(0);
+  updatePaginationButtons();
+</script>
+
 <?php require_once COMPONENTS . '/layout/layout-bottom.php' ?>
-
-
-
-    
