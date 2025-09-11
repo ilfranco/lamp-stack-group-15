@@ -55,7 +55,7 @@
             if (!data.email) 
                 document.getElementById("email_error").textContent = "Please enter your email.";
 
-            if (data.password !== data.confirm_password) 
+            if (!data.password) 
                 document.getElementById("password_error").textContent = "Please enter your password.";
 
             if (!data.email || !data.password) 
