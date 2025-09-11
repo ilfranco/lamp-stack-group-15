@@ -18,7 +18,16 @@
         return;
     }
 
-    returnWithInfo(searchByPage($pdo, $inData["page_index"], $inData["contacts_per_page"], $inData["user_id"]));
+    returnWithInfo(
+        searchByPage($pdo, $inData["page_index"], $inData["contacts_per_page"], $inData["user_id"]),
+        getPagesAmount($pdo, $inData["contacts_per_page"], $inData["user_id"])
+    );
+
+    function getPagesAmount($pdo, $contacts_per_page, $userId) {
+        return (int)($pdo->query(
+            "SELECT COUNT(*) FROM contacts WHERE user_id = " . $userId . ";"
+        )->fetchColumn() / $contacts_per_page + 0.5);
+    }
 
     function searchByPage($pdo, $pageIndex, $contacts_per_page, $userId) {
         $searchResults = "";
@@ -29,6 +38,7 @@
             "SELECT * FROM contacts WHERE user_id = " . $userId
             ." ORDER BY first_name ASC LIMIT " . $contacts_per_page . " OFFSET " . $offset . ";"
         );
+
         foreach ($queryResults as $row) {
 
             $line = "{"
@@ -66,9 +76,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $searchResults )
+	function returnWithInfo( $searchResults, $totalPages )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		$retValue = '{"results":[' . $searchResults . '], "total_pages": "' . $totalPages . '", "error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 
