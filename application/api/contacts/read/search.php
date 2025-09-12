@@ -30,7 +30,7 @@
                 . "OR last_name LIKE '" . $searchTerm . "%' "
                 . "OR email LIKE '" . $searchTerm . "%' "
                 . "OR phone LIKE '" . $searchTerm . "%' "
-            . ") AND user_id = " . $userId .";"
+            . ") AND user_id = " . $userId ." ORDER BY first_name;"
         );
         foreach ($queryResults as $row) {
 
