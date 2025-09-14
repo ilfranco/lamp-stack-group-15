@@ -24,24 +24,24 @@
     );
 
     function getPagesAmount($pdo, $contacts_per_page, $userId) {
-        $amt_contacts = $pdo->query(
+        $amtContacts = $pdo->query(
             "SELECT COUNT(*) FROM contacts WHERE user_id = " . $userId . ";"
         )->fetchColumn();
-        $pages_amt = (int)($amt_contacts / $contacts_per_page);
-        if ($amt_contacts % $contacts_per_page != 0) {
-            $pages_amt++;
+        $pagesAmt = (int)($amtContacts / $contacts_per_page);
+        if ($amtContacts % $contacts_per_page != 0) {
+            $pagesAmt++;
         }
-        return $pages_amt;
+        return $pagesAmt;
     }
 
-    function searchByPage($pdo, $pageIndex, $contacts_per_page, $userId) {
+    function searchByPage($pdo, $pageIndex, $contactsPerPage, $userId) {
         $searchResults = "";
 
-        $offset = $pageIndex * $contacts_per_page;
+        $offset = $pageIndex * $contactsPerPage;
 
         $queryResults = $pdo->query(
             "SELECT * FROM contacts WHERE user_id = " . $userId
-            ." ORDER BY first_name ASC LIMIT " . $contacts_per_page . " OFFSET " . $offset . ";"
+            ." ORDER BY first_name ASC LIMIT " . $contactsPerPage . " OFFSET " . $offset . ";"
         );
 
         foreach ($queryResults as $row) {
