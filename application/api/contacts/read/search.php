@@ -8,21 +8,48 @@
 
     $pdo = db();
 
-    if (!isset($inData["search_term"]) || !isset($inData["user_id"])) {
-        returnWithError("search_term or user_id missing from incomming packet.");
+    if (!isset($inData["page_index"]) || !isset($inData["contacts_per_page"]) || !isset($inData["search_term"]) || !isset($inData["user_id"])) {
+        returnWithError("search_term, user_id, page_index, or contacts_per_page missing from incomming packet.");
         return;
     }
 
-    if (empty($inData["search_term"]) || empty($inData["user_id"])) {
-        returnWithError("search_term or user_id is empty.");
+    if (empty($inData["search_term"]) || empty($inData["contacts_per_page"]) || empty($inData["user_id"])) {
+        returnWithError("search_term, contacts_per_page, or user_id is empty.");
         return;
     }
 
-    returnWithInfo(searchByFirstName($pdo, $inData["search_term"], $inData["user_id"]));
 
+    returnWithInfo(
+        searchByFirstName(
+            $pdo, $inData["search_term"], $inData["user_id"],
+            $inData["page_index"], $inData["contacts_per_page"]
+        ),
+        getPagesAmount(
+            $pdo, $inData["search_term"], $inData["contacts_per_page"],
+            $inData["user_id"]
+        )
+    );
 
-    function searchByFirstName( $pdo, $searchTerm, $userId ) {
+    function getPagesAmount($pdo, $searchTerm, $contactsPerPage, $userId) {
+        $amtContacts = $pdo->query(
+            "SELECT COUNT(*) FROM contacts WHERE ("
+                . "first_name LIKE '" . $searchTerm . "%' "
+                . "OR last_name LIKE '" . $searchTerm . "%' "
+                . "OR email LIKE '" . $searchTerm . "%' "
+                . "OR phone LIKE '" . $searchTerm . "%' "
+            . ") AND user_id = " . $userId ." ORDER BY first_name ASC;"
+        )->fetchColumn();
+        $pagesAmt = (int)($amtContacts / $contactsPerPage);
+        if ($amtContacts % $contactsPerPage != 0) {
+            $pagesAmt++;
+        }
+        return $pagesAmt;
+    }
+
+    function searchByFirstName( $pdo, $searchTerm, $userId, $pageIndex, $contactsPerPage ) {
         $searchResults = "";
+
+        $offset = $pageIndex * $contactsPerPage;
 
         $queryResults = $pdo->query(
             "SELECT * FROM contacts WHERE ("
@@ -30,8 +57,11 @@
                 . "OR last_name LIKE '" . $searchTerm . "%' "
                 . "OR email LIKE '" . $searchTerm . "%' "
                 . "OR phone LIKE '" . $searchTerm . "%' "
-            . ") AND user_id = " . $userId .";"
+            . ") AND user_id = " . $userId ." ORDER BY first_name ASC "
+            . "LIMIT " . $contactsPerPage . " OFFSET " . $offset . ";"
         );
+
+
         foreach ($queryResults as $row) {
 
             $line = "{"
@@ -69,9 +99,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $searchResults )
+	function returnWithInfo( $searchResults, $totalPages )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		$retValue = '{"results":[' . $searchResults . '], "total_pages": "' . $totalPages . '", "error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 
