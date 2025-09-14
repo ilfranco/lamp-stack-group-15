@@ -18,6 +18,12 @@ $pdo = db(); // your db() helper returns a PDO
 header('Access-Control-Allow-Origin: http://localhost');            // adjust for your frontend
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Credentials: true');
+// Start a session for authenticated users
+// Must be called before any output so the session cookie can be set
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_encode(['error'=>'Use POST']); exit; }
@@ -47,7 +53,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 // }
 
 try {
-  // Enforce unique email
+  // Enforce unique email by checking database if email already exists
   $exists = $pdo->prepare('SELECT 1 FROM users WHERE email = ?');
   $exists->execute([$email]);
   if ($exists->fetchColumn()) {
@@ -59,10 +65,14 @@ try {
   $ins = $pdo->prepare(
     'INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?,?,?,?)'
   );
-  $ins->execute([$first, $last, $email, $hash]);
+  $ins->execute([$first, $last, $email, $hash]); 
+
+  $newUserId = (int)$pdo->lastInsertId();
+  // Set the session user_id so subsequent requests are authenticated
+  $_SESSION['user_id'] = $newUserId;
 
   echo json_encode(['ok'=>true, 'user'=>[
-    'id' => (int)$pdo->lastInsertId(),
+    'id' => $newUserId,
     'first_name' => $first,
     'last_name'  => $last,
     'email'     => $email

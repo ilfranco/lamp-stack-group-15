@@ -18,6 +18,11 @@
 header('Access-Control-Allow-Origin: http://localhost');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Credentials: true');
+// Start a session so we can persist user_id on successful login
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_encode(['error'=>'Use POST']); exit; }
 
@@ -47,6 +52,9 @@ if (!$user || !password_verify($pass, $user['password_hash'])) {
   echo json_encode(['error' => 'Incorrect email or password']);
   exit;
 }
+
+// Set session variable upon successful login
+$_SESSION['user_id'] = (int)$user['id'];
 
 echo json_encode(['ok' => true, 'user' => [
   'id' => $user['id'],
