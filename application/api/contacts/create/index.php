@@ -34,18 +34,31 @@
         . $inData["phone"] . "');"
     );
 
-	sendResultInfoAsJson( '{"success":"true","error":""}' );
+    $contactId = (int)$pdo->lastInsertId();
+
+	sendResultInfoAsJson([
+        'ok'      => true,
+        'contact' => [
+            'id'         => $contactId,
+            'user_id'    => (int)$inData['user_id'],
+            'first_name' => $inData['first_name'],
+            'last_name'  => $inData['last_name'],
+            'email'      => $inData['email'],
+            'phone'      => $inData['phone'],
+        ],
+        'error' => ''
+    ]);
 
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function sendResultInfoAsJson( $obj )
-	{
-		header('Content-type: application/json');
-		echo $obj;
-	}
+	function sendResultInfoAsJson($obj)
+    {
+    header('Content-Type: application/json');
+    echo is_string($obj) ? $obj : json_encode($obj);
+    }
 	
 	function returnWithError( $err )
 	{

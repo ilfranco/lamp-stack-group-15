@@ -18,17 +18,32 @@
         return;
     }
 
-    returnWithInfo(searchByPage($pdo, $inData["page_index"], $inData["contacts_per_page"], $inData["user_id"]));
+    returnWithInfo(
+        searchByPage($pdo, $inData["page_index"], $inData["contacts_per_page"], $inData["user_id"]),
+        getPagesAmount($pdo, $inData["contacts_per_page"], $inData["user_id"])
+    );
 
-    function searchByPage($pdo, $pageIndex, $contacts_per_page, $userId) {
+    function getPagesAmount($pdo, $contacts_per_page, $userId) {
+        $amtContacts = $pdo->query(
+            "SELECT COUNT(*) FROM contacts WHERE user_id = " . $userId . ";"
+        )->fetchColumn();
+        $pagesAmt = (int)($amtContacts / $contacts_per_page);
+        if ($amtContacts % $contacts_per_page != 0) {
+            $pagesAmt++;
+        }
+        return $pagesAmt;
+    }
+
+    function searchByPage($pdo, $pageIndex, $contactsPerPage, $userId) {
         $searchResults = "";
 
-        $offset = $pageIndex * $contacts_per_page;
+        $offset = $pageIndex * $contactsPerPage;
 
         $queryResults = $pdo->query(
             "SELECT * FROM contacts WHERE user_id = " . $userId
-            ." ORDER BY first_name ASC LIMIT " . $contacts_per_page . " OFFSET " . $offset . ";"
+            ." ORDER BY first_name ASC LIMIT " . $contactsPerPage . " OFFSET " . $offset . ";"
         );
+
         foreach ($queryResults as $row) {
 
             $line = "{"
@@ -66,9 +81,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $searchResults )
+	function returnWithInfo( $searchResults, $totalPages )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		$retValue = '{"results":[' . $searchResults . '], "total_pages": "' . $totalPages . '", "error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 
