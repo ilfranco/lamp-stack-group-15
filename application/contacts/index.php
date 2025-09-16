@@ -21,7 +21,8 @@
     </div>
     <div class="search-wrapper">
       <label for="search">Search Contacts</label>
-      <input type="search" id="search">
+      <input type="search" id="search" placeholder="Search contacts by name, email, or phone number..." class="mb-4 px-4 py-2 border rounded w-full">
+      <button id="clear-search" class="ml-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded cursor-pointer">Clear</button>
     </div>
     <div class="mt-8 flow-root">
       <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -47,13 +48,14 @@
       </div>
     </div>
     <div class="flex justify-center space-x-2 mt-4">
-      <button id="prevButton" onclick="prevPage()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+      <button id="prevButton" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
         ← Previous
       </button>
-      <button id="nextButton" onclick="nextPage()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+      <button id="nextButton" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
         Next →
       </button>
     </div>
+    <div id="page-indicator" class="text-sm text-gray-600 dark:text-gray-300 mt-2"></div>
   </div>
   <div id="edit-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
     <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-full max-w-md">
@@ -101,7 +103,9 @@
 <script>
   //workaround until session page is implemented
   window.AppState = {
-    currentPage: 0
+    currentPage: 0,
+    isSearching: false,
+    searchQuery: ""
   };
 </script>
 
@@ -109,9 +113,30 @@
 <script src = "/contacts/update/update.js"></script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-		//Handle loading page
+  document.addEventListener("DOMContentLoaded", function () {
+		
     loadContactTable();
+
+    //Handle loading contacts
+    document.getElementById("search").addEventListener("input", function () {
+      const query = this.value.trim().toLowerCase();
+      console.log(query);
+      if (query === "") {
+        window.AppState.isSearching = false;
+        loadContactTable();
+      } else {
+        window.AppState.currentPage = 0;
+        searchContacts(query);
+      }
+    });
+
+    document.getElementById("clear-search").addEventListener("click", function () {
+      window.AppState.isSearching = false;
+      window.AppState.searchQuery = "";
+      window.AppState.currentPage = 0;
+      document.getElementById("search").value = "";
+      loadContactTable(window.AppState.currentPage);
+    });
 
     //Handle editing contact information
     document.getElementById("tbody").addEventListener("click", function(event) {
