@@ -8,21 +8,23 @@
   <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <h1>Personal Contacts Page</h1>
+  <!---<header class="header-bar">
+    <h1 class="header-title">Personal Contacts</h1>
+    <button id="logout-button" class="btn btn-logout">Logout</button>
+  </header>--->
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-base font-semibold text-gray-900 dark:text-white">Contacts</h1>
-        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">A table of all the contacts in your account.</p>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-        <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add Contact</button>
+        <button type="button" id ="add-contact" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add Contact</button>
       </div>
     </div>
     <div class="search-wrapper">
       <label for="search">Search Contacts</label>
       <input type="search" id="search" placeholder="Search contacts by name, email, or phone number..." class="mb-4 px-4 py-2 border rounded w-full">
-      <button id="clear-search" class="ml-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded cursor-pointer">Clear</button>
+      <button id="clear-search" class="mb-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded cursor-pointer">Clear</button>
     </div>
     <div class="mt-8 flow-root">
       <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -65,18 +67,22 @@
         <div class="mb-4">
           <label for="edit-first-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
           <input type="text" id="edit-first-name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+          <span id="error-first-name" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
         </div>
         <div class="mb-4">
           <label for="edit-last-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
           <input type="text" id="edit-last-name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+          <span id="error-last-name" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
         </div>
         <div class="mb-4">
           <label for="edit-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
           <input type="email" id="edit-email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+          <span id="error-email" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
         </div>
         <div class="mb-4">
           <label for="edit-phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
           <input type="text" id="edit-phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+          <span id="error-phone" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
         </div>
         <div class="flex justify-between">
           <button type="button" id="delete-contact" class="px-4 py-2 bg-red-600 text-white rounded cursor-pointer">Delete</button>
@@ -138,6 +144,11 @@
       loadContactTable(window.AppState.currentPage);
     });
 
+    document.getElementById("add-contact").addEventListener("click", function () {
+      window.location.href = "/contacts/create";
+      loadContactTable(window.AppState.currentPage);
+    });
+
     //Handle editing contact information
     document.getElementById("tbody").addEventListener("click", function(event) {
       const target = event.target.closest(".edit-btn");
@@ -150,10 +161,10 @@
 
         const contact = {
           id: row.getAttribute("data-id"),
-          first_name: row.getAttribute("data-first-name"),
-          last_name: row.getAttribute("data-last-name"),
-          email: row.getAttribute("data-email"),
-          phone: row.getAttribute("data-phone")
+          first_name: row.getAttribute("data-first-name").trim(),
+          last_name: row.getAttribute("data-last-name").trim(),
+          email: row.getAttribute("data-email").trim(),
+          phone: row.getAttribute("data-phone").trim()
         };
 
         openEditForm(contact);
@@ -161,6 +172,10 @@
     });
 
     document.getElementById("cancel-edit").addEventListener("click", function() {
+      document.getElementById("error-first-name").setAttribute("hidden", "");
+      document.getElementById("error-last-name").setAttribute("hidden", "");
+      document.getElementById("error-email").setAttribute("hidden", "");
+      document.getElementById("error-phone").setAttribute("hidden", "");
       document.getElementById("edit-modal").classList.add("hidden");
     });
 

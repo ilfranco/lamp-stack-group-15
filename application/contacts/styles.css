@@ -1,7 +1,44 @@
+.header-bar {
+    overflow: hidden;
+    background-color: #333;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.header-title {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 0;
+}
+
+.btn {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.btn-logout {
+    background-color: #967bb6;
+    color: white;
+}
+
+.btn-logout:hover {
+    background-color: #ddd;
+    color: black;
+}
+
 .search-wrapper{
     display: flex;
     flex-direction: column;
-    gap: .25rem;
+    gap: .15rem;
     margin-top: 1rem;
 }
 
