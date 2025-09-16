@@ -81,7 +81,7 @@
             if (data.password && data.confirm_password && (data.password !== data.confirm_password)) 
                 document.getElementById("confirm_password_error").textContent = "Passwords do not match.";
 
-            if (!data.last_name || !data.email || data.password !== data.confirm_password) 
+            if (!data.first_name || !data.last_name || !data.email || !data.password || !data.confirm_password || data.password !== data.confirm_password) 
                 return;
 
 
