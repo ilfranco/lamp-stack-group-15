@@ -31,7 +31,7 @@
             <thead class="bg-gray-200 rounded-tl-2x1 rounded-tr">
               <tr>
                 <th scope="col" class="rounded-tl-lg pl-4 table-header sm:pl-3 dark:text-white">First Name</th>
-                <th scope="col" class="table-header dark:text-white">Last Name</th>
+                <th scope="col" class="table-header !pl-0 dark:text-white">Last Name</th>
                 <th scope="col" class="table-header dark:text-white">Email</th>
                 <th scope="col" class="table-header dark:text-white">Phone Number</th>
                 <th scope="col" class="table-header dark:text-white">Date Created</th>
