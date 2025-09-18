@@ -6,6 +6,14 @@
 
     $inData = getRequestInfo();
 
+    session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        returnWithError("Not authenticated");
+        exit;
+    }
+
     $pdo = db();
 
     if (!isset($inData["page_index"]) || !isset($inData["contacts_per_page"]) || !isset($inData["search_term"]) || !isset($inData["user_id"])) {
