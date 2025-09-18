@@ -27,7 +27,7 @@
         <h1 class="text-base font-semibold text-gray-900 dark:text-white">Contacts</h1>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-        <button type="button" id ="add-contact" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add Contact</button>
+        <button onclick="open_add_contact_form()" type="button" id ="add-contact" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add Contact</button>
       </div>
     </div>
     <div class="search-wrapper">
@@ -68,6 +68,7 @@
     </div>
     <div id="page-indicator" class="text-sm text-gray-600 dark:text-gray-300 mt-2"></div>
   </div>
+  
   <div id="edit-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
     <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-full max-w-md">
       <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Edit Contact</h2>
@@ -103,6 +104,42 @@
       </form>
     </div>
   </div>
+
+  <div id="add-contact-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Add Contact</h2>
+      <form id="add_contact_form">
+        <input type="hidden" id="edit-id" />
+        <div class="mb-4">
+          <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
+          <input type="text" id="first_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="first_name"/>
+          <span id="error-first-name-add" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+        </div>
+        <div class="mb-4">
+          <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
+          <input type="text" id="last_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="last_name"/>
+          <span id="error-last-name-add" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+          <input type="email" id="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="email" type="email"/>
+          <span id="error-email-add" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+        </div>
+        <div class="mb-4">
+          <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
+          <input type="text" id="phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" type="tel" maxlength=10 name="phone"/>
+          <span id="error-phone-add" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+        </div>
+        <div class="flex justify-between">
+          <div class="flex space-x-2">
+            <button onclick="open_add_contact_form()" type="button" id="cancel-add" class="px-4 py-2 bg-gray-300 dark:bg-gray-600 rounded cursor-pointer">Cancel</button>
+            <button id="add_contact" type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded cursor-pointer">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id="confirm-delete-modal" class="fixed inset-0 flex items-center justify-center bg-black/50 hidden z-50">
   <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-sm w-full">
     <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Confirm Deletion</h2>
@@ -153,10 +190,10 @@
       loadContactTable(window.AppState.currentPage);
     });
 
-    document.getElementById("add-contact").addEventListener("click", function () {
-      window.location.href = "/contacts/create";
-      loadContactTable(window.AppState.currentPage);
-    });
+    // document.getElementById("add-contact").addEventListener("click", function () {
+    //   window.location.href = "/contacts/create";
+    //   loadContactTable(window.AppState.currentPage);
+    // });
 
     //Handle editing contact information
     document.getElementById("tbody").addEventListener("click", function(event) {
@@ -225,6 +262,88 @@
     });
 
 	}, false);
+
+  function open_add_contact_form()
+  {
+    if (document.getElementById("add-contact-modal").classList.contains("hidden"))
+      document.getElementById("add-contact-modal").classList.remove("hidden"); 
+    else
+      document.getElementById("add-contact-modal").classList.add("hidden"); 
+  }
+
+  document.getElementById("add_contact").addEventListener("click", async (event) => 
+  {
+      event.preventDefault();
+
+      const formData = new FormData(document.getElementById("add_contact_form"));
+      console.log(document.getElementById("add_contact_form"));
+      const data = Object.fromEntries(formData.entries());
+      console.log(data);
+      data.first_name = data.first_name.trim();
+      data.last_name = data.last_name.trim();
+      data.email = data.email.trim().toLowerCase();
+
+      if(!data.first_name){
+        document.getElementById("error-first-name-add").textContent = "Please enter your contact's first name.";
+        document.getElementById("error-first-name-add").removeAttribute("hidden");
+    }
+        
+    if(!data.last_name){
+        document.getElementById("error-last-name-add").textContent = "Please enter your contact's last name.";
+        document.getElementById("error-last-name-add").removeAttribute("hidden");
+    }
+    if(!data.email){
+        document.getElementById("error-email-add").textContent = "Please enter your contact's email.";
+        document.getElementById("error-email-add").removeAttribute("hidden");
+    }
+    if(!data.phone){
+        document.getElementById("error-phone-add").textContent = "Please enter your contact's phone.";
+        document.getElementById("error-phone-add").removeAttribute("hidden");
+    }
+
+    if (!data.first_name || !data.last_name || !data.email || !data.phone) 
+        return;
+
+      const body = JSON.stringify(data);
+
+      // console.log(body);
+
+      try 
+      {
+          const response = await fetch("/api/contacts/create/", 
+          {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: body
+          });
+
+          if (response.ok) // If (response.status >= 200) && (response.status <= 299)
+          {
+              const data = await response.json();
+              /* 
+              data = {
+                  "message": "Success! User registered.",
+                  "user": {
+                      "id": integer,
+                      "first_name": string,
+                      "last_name": string, 
+                  }
+              }*/
+              window.location.href = "/contacts/"
+          }
+          else // If (response.status < 200) || (response.status > 299)
+          {
+              const error = await response.json();
+              error.status = response.status;
+              error.statusText = response.statusText;
+              throw error;
+          }
+      } 
+      catch (error)
+      {
+          // Error handling coming soon!
+      }
+  });
 </script>
 
 <?php require_once COMPONENTS . '/layout/layout-bottom.php' ?>
