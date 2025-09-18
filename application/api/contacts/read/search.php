@@ -14,6 +14,8 @@
         exit;
     }
 
+    $inData["user_id"] = $_SESSION["user_id"];
+
     $pdo = db();
 
     if (!isset($inData["page_index"]) || !isset($inData["contacts_per_page"]) || !isset($inData["search_term"]) || !isset($inData["user_id"])) {
