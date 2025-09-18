@@ -3,42 +3,40 @@
 
 <?php require_once COMPONENTS . '/layout/layout-top.php' ?>
 
-<html lang ="en">
-<main>
-  <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <!---<header class="header-bar">
+<link rel="stylesheet" href="styles.css">
+  <header class="header-bar">
     <h1 class="header-title">Personal Contacts</h1>
     <button id="logout-button" class="btn btn-logout">Logout</button>
-  </header>--->
+  </header>
+
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
-        <h1 class="text-base font-semibold text-gray-900 dark:text-white">Contacts</h1>
+        <h1 class="text-base font-semibold text-gray-900 dark:text-white">Your Contacts</h1>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <button type="button" id ="add-contact" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add Contact</button>
       </div>
     </div>
-    <div class="search-wrapper">
-      <label for="search">Search Contacts</label>
+
+    <div class="search-wrapper flex items-center">
       <input type="search" id="search" placeholder="Search contacts by name, email, or phone number..." class="mb-4 px-4 py-2 border rounded w-full">
-      <button id="clear-search" class="mb-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded cursor-pointer">Clear</button>
+      <button id="clear-search" class="mb-4 px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded cursor-pointer">Clear</button>
     </div>
-    <div class="mt-8 flow-root">
+
+    <div class="mt-4 flow-root">
       <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <table class="relative min-w-full divide-y divide-gray-300 dark:divide-white/15">
-            <thead>
+          <table class="relative min-w-full divide-y divide-gray-500 dark:divide-white/15">
+            <thead class="bg-gray-200 rounded-tl-2x1 rounded-tr">
               <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">First Name</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Last Name</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Email</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Phone Number</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Date Created</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Date Updated</th>
-                <th scope="col" class="py-3.5 pl-3 pr-4 sm:pr-0">
+                <th scope="col" class="rounded-tl-lg pl-4 table-header sm:pl-3 dark:text-white">First Name</th>
+                <th scope="col" class="table-header dark:text-white">Last Name</th>
+                <th scope="col" class="table-header dark:text-white">Email</th>
+                <th scope="col" class="table-header dark:text-white">Phone Number</th>
+                <th scope="col" class="table-header dark:text-white">Date Created</th>
+                <th scope="col" class="table-header dark:text-white">Date Updated</th>
+                <th scope="col" class="rounded-tr-lg py-3.5 pl-3 pr-4 sm:pr-0">
                   <span class="sr-only">Edit</span>
                 </th>
               </tr>
@@ -49,11 +47,12 @@
         </div>
       </div>
     </div>
+
     <div class="flex justify-center space-x-2 mt-4">
-      <button id="prevButton" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+      <button id="prevButton" class="pagination-buttons bg-gray-200 text-gray-700 hover:bg-gray-300">
         ← Previous
       </button>
-      <button id="nextButton" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+      <button id="nextButton" class="pagination-buttons bg-blue-600 text-white hover:bg-blue-700">
         Next →
       </button>
     </div>
@@ -65,24 +64,24 @@
       <form id="edit-form">
         <input type="hidden" id="edit-id" />
         <div class="mb-4">
-          <label for="edit-first-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
-          <input type="text" id="edit-first-name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
-          <span id="error-first-name" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+          <label for="edit-first-name" class="edit-label dark:text-gray-300">First Name</label>
+          <input type="first-name" id="edit-first-name" class="edit-input shadow-md" />
+          <span id="error-first-name" class="edit-error"></span>
         </div>
         <div class="mb-4">
-          <label for="edit-last-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
-          <input type="text" id="edit-last-name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
-          <span id="error-last-name" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+          <label for="edit-last-name" class="edit-label dark:text-gray-300">Last Name</label>
+          <input type="last-name" id="edit-last-name" class="edit-input shadow-md" />
+          <span id="error-last-name" class="edit-error"></span>
         </div>
         <div class="mb-4">
-          <label for="edit-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-          <input type="email" id="edit-email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
-          <span id="error-email" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+          <label for="edit-email" class="edit-label dark:text-gray-300">Email</label>
+          <input type="email" id="edit-email" class="edit-input shadow-md" />
+          <span id="error-email" class="edit-error"></span>
         </div>
         <div class="mb-4">
-          <label for="edit-phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
-          <input type="text" id="edit-phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
-          <span id="error-phone" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+          <label for="edit-phone" class="edit-label dark:text-gray-300">Phone</label>
+          <input type="phone" id="edit-phone" class="edit-input shadow-md" />
+          <span id="error-phone" class="edit-error"></span>
         </div>
         <div class="flex justify-between">
           <button type="button" id="delete-contact" class="px-4 py-2 bg-red-600 text-white rounded cursor-pointer">Delete</button>
@@ -95,16 +94,16 @@
     </div>
   </div>
   <div id="confirm-delete-modal" class="fixed inset-0 flex items-center justify-center bg-black/50 hidden z-50">
-  <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-sm w-full">
-    <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Confirm Deletion</h2>
-    <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">Are you sure you want to delete this contact? This action cannot be undone.</p>
-    <div class="flex justify-end space-x-2">
-      <button id="cancel-delete" class="px-4 py-2 bg-gray-300 dark:bg-gray-600 rounded cursor-pointer">Cancel</button>
-      <button id="confirm-delete" class="px-4 py-2 bg-red-600 text-white rounded cursor-pointer">Delete</button>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-sm w-full">
+      <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Confirm Deletion</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">Are you sure you want to delete this contact? This action cannot be undone.</p>
+      <div class="flex justify-end space-x-2">
+        <button id="cancel-delete" class="px-4 py-2 bg-gray-300 dark:bg-gray-600 rounded cursor-pointer">Cancel</button>
+        <button id="confirm-delete" class="px-4 py-2 bg-red-600 text-white rounded cursor-pointer">Delete</button>
+      </div>
     </div>
   </div>
-</div>
-</main>
+
 
 <script>
   //workaround until session page is implemented
