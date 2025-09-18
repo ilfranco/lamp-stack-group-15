@@ -6,6 +6,16 @@
 
     $inData = getRequestInfo();
 
+    session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        returnWithError("Not authenticated");
+        exit;
+    }
+
+    $inData["user_id"] = $_SESSION["user_id"];
+
     $pdo = db();
 
     $required_input = ["id"];
