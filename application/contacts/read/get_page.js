@@ -1,7 +1,7 @@
 let pageSize = 5;
 let totalPages;
 let totalPagesSearch;
-let userId = 1;
+// let userId = 1;
 
 document.getElementById("nextButton").addEventListener("click", () => nextPage());
 document.getElementById("prevButton").addEventListener("click", () => prevPage());
@@ -16,7 +16,7 @@ function loadContactTable(){
     let data = {
       page_index: window.AppState.currentPage,
       contacts_per_page: pageSize,
-      user_id: userId
+    //   user_id: userId
     };
     
     const jsonPayload = JSON.stringify(data);
@@ -47,7 +47,7 @@ function searchContacts(query){
     let data = {
       page_index: window.AppState.currentPage,
       contacts_per_page: pageSize,
-      user_id: userId,
+    //   user_id: userId,
       search_term: query
     };
 
@@ -84,6 +84,7 @@ function renderContactTable(response){
     updatePaginationButtons();
 
     let tableBody = '';
+    // console.log(response);
     for(let i = 0; i < response.results.length; i++){
         const contact = response.results[i];
         tableBody += '<tr ' +
