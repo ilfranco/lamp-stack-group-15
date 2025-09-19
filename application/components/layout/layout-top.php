@@ -3,7 +3,7 @@
 <html lang="en-US">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
       <?php echo isset($title) ? htmlspecialchars($title) . ' | ' :  '';?>       
       Group 15 LAMP Stack Project
@@ -12,4 +12,4 @@
   </head>
 
     <body class="flex flex-col w-full min-h-screen">
-          <main class="mx-auto flex h-full w-full max-w-7xl flex-1 flex-col gap-4 rounded-xl">
+          <main class="mx-auto flex h-full w-full flex-1 flex-col gap-4 rounded-xl">

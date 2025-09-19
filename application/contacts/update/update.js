@@ -33,7 +33,7 @@ function submitEditForm(contact){
         document.getElementById("error-email").removeAttribute("hidden");
     }
     if(!data.phone){
-        document.getElementById("error-phone").textContent = "Please enter your contact's phone.";
+        document.getElementById("error-phone").textContent = "Please enter your contact's phone number.";
         document.getElementById("error-email").removeAttribute("hidden");
     }
 

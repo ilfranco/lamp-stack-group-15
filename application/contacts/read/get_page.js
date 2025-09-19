@@ -1,4 +1,4 @@
-let pageSize = 5;
+let pageSize = 6;
 let totalPages;
 let totalPagesSearch;
 // let userId = 1;
@@ -93,13 +93,13 @@ function renderContactTable(response){
             'data-last-name="' + contact.last_name + '" ' +
             'data-email="' + contact.email + '" ' +
             'data-phone="' + contact.phone + '">';
-        tableBody += '<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0 dark:text-white">' + contact.first_name + '</td>';
+        tableBody += '<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3 dark:text-white">' + contact.first_name + '</td>';
         tableBody += '<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0 dark:text-white">' + contact.last_name + '</td>';
         tableBody += '<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">' + contact.email + '</td>';
         tableBody += '<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">' + formatPhoneNumber(contact.phone) + '</td>';
         tableBody += '<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">' + contact.created_at + '</td>';
         tableBody += '<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">' + contact.updated_at + '</td>';
-        tableBody += '<td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">';
+        tableBody += '<td class="whitespace-nowrap py-4 pl-3 pr-4 text-align:left text-sm font-medium sm:pr-0">';
         tableBody += '<a href="#" class="edit-btn text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300" data-id="' + contact.id + '">Edit<span class="sr-only">' + contact.first_name + contact.last_name + '</span></a>';
         tableBody += '</td>'
         tableBody += '</tr>';
