@@ -98,8 +98,8 @@ function renderContactTable(response){
         tableBody += '<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">' + contact.email + '</td>';
         tableBody += '<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">' + formatPhoneNumber(contact.phone) + '</td>';
         tableBody += '<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">' + contact.created_at + '</td>';
-        tableBody += '<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">' + contact.updated_at + '</td>';
-        tableBody += '<td class="whitespace-nowrap py-4 pl-3 pr-4 text-align:left text-sm font-medium sm:pr-0">';
+        tableBody += '<td class="whitespace-nowrap px-2 py-4 text-sm text-gray-500 dark:text-gray-400">' + contact.updated_at + '</td>';
+        tableBody += '<td class="whitespace-nowrap py-4 pl-0 pr-4 text-align:left text-sm font-medium sm:pr-0">';
         tableBody += '<a href="#" class="edit-btn text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300" data-id="' + contact.id + '">Edit<span class="sr-only">' + contact.first_name + contact.last_name + '</span></a>';
         tableBody += '</td>'
         tableBody += '</tr>';

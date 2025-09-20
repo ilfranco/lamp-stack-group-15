@@ -21,14 +21,14 @@
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
-        <h1 class="text-base font-semibold text-gray-900 dark:text-white">Your Contacts</h1>
+        <h1 class="text-base font-semibold text-gray-900 dark:text-white">Welcome!</h1>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-        <button onclick="open_add_contact_form()" type="button" id ="add-contact" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add Contact</button>
+        <button onclick="open_add_contact_form()" type="button" id ="add-contact" class="block cursor-pointer rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Add Contact</button>
       </div>
     </div>
 
-    <div class="search-wrapper flex items-center">
+    <div class="search-wrapper flex space-x-2 items-center">
       <input type="search" id="search" placeholder="Search contacts by name, email, or phone number..." class="mb-4 px-4 py-2 border rounded w-full">
       <button id="clear-search" class="mb-4 px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded cursor-pointer">Clear</button>
     </div>
@@ -70,7 +70,7 @@
   
   <div id="edit-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
     <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-full max-w-md">
-      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Edit Contact</h2>
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Edit Contact Information</h2>
       <form id="edit-form">
         <input type="hidden" id="edit-id" />
         <div class="mb-4">
@@ -89,7 +89,7 @@
           <span id="error-email" class="edit-error"></span>
         </div>
         <div class="mb-4">
-          <label for="edit-phone" class="edit-label dark:text-gray-300">Phone</label>
+          <label for="edit-phone" class="edit-label dark:text-gray-300">Phone Number</label>
           <input type="phone" id="edit-phone" class="edit-input shadow-md" />
           <span id="error-phone" class="edit-error"></span>
         </div>
@@ -106,30 +106,30 @@
 
   <div id="add-contact-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
     <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-full max-w-md">
-      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Add Contact</h2>
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Add Contact Information</h2>
       <form id="add_contact_form">
         <input type="hidden" id="edit-id" />
         <div class="mb-4">
-          <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
-          <input type="text" id="first_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="first_name"/>
-          <span id="error-first-name-add" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+          <label for="first_name" class="edit-label dark:text-gray-300">First Name</label>
+          <input type="text" id="first_name" class="edit-input shadow-md" name="first_name"/>
+          <span id="error-first-name-add" class="edit-error"></span>
         </div>
         <div class="mb-4">
-          <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
-          <input type="text" id="last_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="last_name"/>
-          <span id="error-last-name-add" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+          <label for="last_name" class="edit-label dark:text-gray-300">Last Name</label>
+          <input type="text" id="last_name" class="edit-input shadow-md" name="last_name"/>
+          <span id="error-last-name-add" class="edit-error"></span>
         </div>
         <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-          <input type="email" id="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="email" type="email"/>
-          <span id="error-email-add" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+          <label for="email" class="edit-label dark:text-gray-300">Email</label>
+          <input type="email" id="email" class="edit-input shadow-md" name="email" type="email"/>
+          <span id="error-email-add" class="edit-error"></span>
         </div>
         <div class="mb-4">
-          <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
-          <input type="text" id="phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" type="tel" maxlength=10 name="phone"/>
-          <span id="error-phone-add" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
+          <label for="phone" class="edit-label dark:text-gray-300">Phone Number</label>
+          <input type="text" id="phone" class="edit-input shadow-md" type="tel" maxlength=10 name="phone"/>
+          <span id="error-phone-add" class="edit-error"></span>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-end">
           <div class="flex space-x-2">
             <button onclick="open_add_contact_form()" type="button" id="cancel-add" class="px-4 py-2 bg-gray-300 dark:bg-gray-600 rounded cursor-pointer">Cancel</button>
             <button id="add_contact" type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded cursor-pointer">Save</button>
@@ -296,7 +296,7 @@
         document.getElementById("error-email-add").removeAttribute("hidden");
     }
     if(!data.phone){
-        document.getElementById("error-phone-add").textContent = "Please enter your contact's phone.";
+        document.getElementById("error-phone-add").textContent = "Please enter your contact's phone number.";
         document.getElementById("error-phone-add").removeAttribute("hidden");
     }
 
