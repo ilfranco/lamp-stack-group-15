@@ -14,8 +14,6 @@
     // Just click on the latest network request/response and click on preview.
     //echo json_encode($data);
     
-
-header('Access-Control-Allow-Origin: http://localhost');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Credentials: true');

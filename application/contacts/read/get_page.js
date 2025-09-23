@@ -9,7 +9,7 @@ document.getElementById("prevButton").addEventListener("click", () => prevPage()
 function loadContactTable(){
 
     const xhr = new XMLHttpRequest();
-    const url = 'http://localhost/api/contacts/read/get_page.php'; 
+    const url = '/api/contacts/read/get_page.php'; 
 
     if (window.AppState.currentPage < 0) window.AppState.currentPage = 0;
 
@@ -42,7 +42,7 @@ function searchContacts(query){
     window.AppState.searchQuery = query;
 
     const xhr = new XMLHttpRequest();
-    const url = 'http://localhost/api/contacts/read/search.php'; 
+    const url = '/api/contacts/read/search.php'; 
 
     let data = {
       page_index: window.AppState.currentPage,

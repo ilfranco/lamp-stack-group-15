@@ -9,7 +9,7 @@ function openEditForm(contact) {
 
 function submitEditForm(contact){
     const xhr = new XMLHttpRequest();
-    const url = 'http://localhost/api/contacts/update/index.php';
+    const url = '/api/contacts/update/index.php';
 
     let data = {
         id: contact.id,
@@ -67,7 +67,7 @@ function deleteUser(contactId){
         return;
 
     const xhr = new XMLHttpRequest();
-    const url = 'http://localhost/api/contacts/delete/index.php';
+    const url = '/api/contacts/delete/index.php';
 
     let data = {
         id: contactId
