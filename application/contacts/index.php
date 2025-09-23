@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="styles.css">
   <header class="header-bar">
     <h1 class="header-title">Personal Contacts</h1>
-    <button id="logout-button" class="btn btn-logout">Logout</button>
+    <a href="/api/auth/logout/" ><button id="logout-button" class="btn btn-logout">Logout</button></a>
   </header>
 
   <div class="px-4 sm:px-6 lg:px-8">
