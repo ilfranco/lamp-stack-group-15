@@ -47,12 +47,12 @@ main{
 }
 
 .btn-logout {
-    background-color: #15ad8a;
-    color: white;
+    background-color: #5ac9af;
+    color: rgb(0, 0, 0);
 }
 
 .btn-logout:hover {
-    background-color: #1b9c6b;
+    background-color: #339771;
     color: white;
     cursor: pointer;
 }

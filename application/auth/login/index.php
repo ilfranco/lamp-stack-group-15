@@ -2,7 +2,7 @@
 <?php $title = 'Log in' ?>
 
 <?php require_once COMPONENTS . '/layout/layout-top.php' ?>
-    <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10 bg-blue-100">
         <div class="w-full max-w-sm">
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col items-center gap-4">
@@ -11,7 +11,7 @@
                         <h1 class="text-xl font-medium">
                             Log in to your account
                         </h1>
-                        <p class="text-center text-sm text-gray-500">Enter your email and password below to log in</p>
+                        <p class="text-center text-sm text-gray-700">Enter your email and password below to log in</p>
                     </div>
                 </div>
                 <form id="login_form" class="flex flex-col gap-2">
@@ -24,19 +24,19 @@
                     </div>  -->
                     <div class="grid gap-2">
                         <label for="email" class="text-sm font-medium">Email Address</label>
-                        <input id="email" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="email@example.com" type="email" name="email" required />
+                        <input id="email" class="border rounded-md border-gray-400 placeholder:text-gray-400 px-3 py-2 shadow-md bg-white" placeholder="email@example.com" type="email" name="email" required />
                         <span id="email_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
                     <div class="grid gap-2">
                         <label for="password" class="text-sm font-medium">Password</label>
-                        <input id="password" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="Password" type="password" name="password" required />
+                        <input id="password" class="border rounded-md border-gray-400 placeholder:text-gray-400 px-3 py-2 shadow-md bg-white" placeholder="Password" type="password" name="password" required />
                         <span id="password_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
-                    <button id="log_in" type="button" class="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-md mt-4 text-sm cursor-pointer">
+                    <button id="log_in" type="button" class="flex items-center justify-center gap-2 bg-blue-800 hover:bg-blue-900 text-white px-4 py-3 rounded-md mt-4 text-sm cursor-pointer">
                         Log in
                     </button>
-                    <div class="text-gray-400 text-center text-sm">
-                        Don't have an account? <a href="/auth/register" class="text-gray-700 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-500 cursor-pointer transition-colors duration-300 ease-out">Sign up</a>
+                    <div class="text-gray-700 text-center text-sm">
+                        Don't have an account? <a href="/auth/register" class="text-gray-700 underline decoration-neutral-400 underline-offset-4 hover:decoration-neutral-700 cursor-pointer transition-colors duration-300 ease-out">Sign up</a>
                     </div>
                 </form>
             </div>

@@ -2,7 +2,7 @@
 <?php $title = 'Register' ?>
 
 <?php require_once COMPONENTS . '/layout/layout-top.php' ?>
-    <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <div class="flex min-h-svh flex-col items-center justify-center bg-blue-100 gap-6 p-6 md:p-2">
         <div class="w-full max-w-sm">
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col items-center gap-4">
@@ -11,41 +11,41 @@
                         <h1 class="text-xl font-medium">
                             Create an account
                         </h1>
-                        <p class="text-center text-sm text-gray-500">Enter your details below to create your account</p>
+                        <p class="text-center text-sm text-gray-700">Enter your details below to create your account</p>
                     </div>
                 </div>
                 <form id="registration_form" class="flex flex-col gap-2">
 
                     <div class="grid gap-2">
                         <label for="first_name" class="text-sm font-medium">First name</label>
-                        <input id="first_name" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="First name" type="text" name="first_name" required />
+                        <input id="first_name" class="border rounded-md bg-white border-gray-400 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="First name" type="text" name="first_name" required />
                         <span id="first_name_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
                     <div class="grid gap-2">
                         <label for="last_name" class="text-sm font-medium">Last name</label>
-                        <input id="last_name" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="Last name" type="text" name="last_name" required />
+                        <input id="last_name" class="border rounded-md bg-white border-gray-400 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="Last name" type="text" name="last_name" required />
                         <span id="last_name_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
                     <div class="grid gap-2">
                         <label for="email" class="text-sm font-medium">Email Address</label>
-                        <input id="email" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="email@example.com" type="email" name="email" required />
+                        <input id="email" class="border rounded-md bg-white border-gray-400 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="email@example.com" type="email" name="email" required />
                         <span id="email_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
                     <div class="grid gap-2">
                         <label for="password" class="text-sm font-medium">Password</label>
-                        <input class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="Password" type="password" id="password" name="password" required />
+                        <input class="border rounded-md bg-white border-gray-400 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="Password" type="password" id="password" name="password" required />
                         <span id="password_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
                     <div class="grid gap-2">
                         <label for="confirm_password" class="text-sm font-medium">Confirm password</label>
-                        <input id="confirm_password" class="border rounded-md border-gray-300 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="Confirm password" type="password" name="confirm_password" required >
+                        <input id="confirm_password" class="border rounded-md bg-white border-gray-400 placeholder:text-gray-400 px-3 py-2 shadow-md" placeholder="Confirm password" type="password" name="confirm_password" required >
                         <span id="confirm_password_error" class="text-right text-xs text-red-600 min-h-[1rem]"></span>
                     </div>
-                    <button id="create_account" type="button" class="flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-3 rounded-md mt-4 text-sm cursor-pointer">
+                    <button id="create_account" type="button" class="flex items-center justify-center gap-2 bg-blue-800 hover:bg-blue-900 text-white px-4 py-3 rounded-md mt-4 text-sm cursor-pointer">
                         Create account
                     </button>
-                    <div class="text-gray-400 text-center text-sm">
-                        Already have an account? <a href="/auth/login" class="text-gray-700 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-500 cursor-pointer transition-colors duration-300 ease-out">Log in</a>
+                    <div class="text-gray-700 text-center text-sm">
+                        Already have an account? <a href="/auth/login" class="text-gray-700 underline decoration-neutral-400 underline-offset-4 hover:decoration-neutral-500 cursor-pointer transition-colors duration-400 ease-out">Log in</a>
                     </div>
                 </form>
             </div>
